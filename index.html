@@ -101,7 +101,13 @@
 
         <div class="flex-wrapper">
           <section>
-            <button class="alerts-btn" id="alerts-btn" aria-expanded="false" aria-controls="alerts">
+            <button
+              class="alerts-btn"
+              id="alerts-btn"
+              aria-haspopup="true"
+              aria-expanded="false"
+              aria-controls="alerts"
+            >
               <svg
                 aria-hidden="true"
                 width="41"
@@ -180,14 +186,21 @@
             </div>
           </section>
 
-          <button class="nav-menu-btn" id="nav-menu-btn">
-            <span class="store-name">Davii Collections</span>
-            <span class="user-img" aria-label="User image">DC</span>
-          </button>
-          <nav class="nav-menu hidden" id="nav-menu" role="menu">
-            <ul id="nav-menu">
+          <div class="menu-wrapper">
+            <button
+              class="menu-btn"
+              id="menu-btn"
+              aria-haspopup="true"
+              aria-expanded="false"
+              aria-controls="menu"
+            >
+              <span class="store-name">Davii Collections</span>
+              <span class="user-img" aria-label="User image">DC</span>
+            </button>
+
+            <ul id="menu" class="menu hidden" role="menu" aria-label="User Menu">
               <li>
-                <a href="https://admin.shopify.com" class="active">
+                <a href="https://admin.shopify.com" class="active" role="menuitem">
                   <div class="flex-wrapper">
                     <span class="user-img" aria-label="User image">DC</span
                     ><span>Davii Collections</span>
@@ -215,7 +228,7 @@
                 </a>
               </li>
               <li class="divider">
-                <a href="https://admin.shopify.com">
+                <a href="https://admin.shopify.com" role="menuitem">
                   <div class="flex-wrapper">
                     <svg
                       class="icon"
@@ -238,35 +251,35 @@
               </li>
 
               <li>
-                <a href="https://admin.shopify.com">Help Center</a>
+                <a href="https://admin.shopify.com" role="menuitem">Help Center</a>
               </li>
               <li>
-                <a href="https://admin.shopify.com">Changelog</a>
+                <a href="https://admin.shopify.com" role="menuitem">Changelog</a>
               </li>
               <li>
-                <a href="https://admin.shopify.com">Community forums</a>
+                <a href="https://admin.shopify.com" role="menuitem">Community forums</a>
               </li>
               <li>
-                <a href="https://admin.shopify.com">Hire a Shopify Partner</a>
+                <a href="https://admin.shopify.com" role="menuitem">Hire a Shopify Partner</a>
               </li>
               <li class="divider">
-                <a href="https://admin.shopify.com">Keyboard shortcuts</a>
+                <a href="https://admin.shopify.com" role="menuitem">Keyboard shortcuts</a>
               </li>
 
               <li>
-                <a href="https://admin.shopify.com">
+                <a href="https://admin.shopify.com" role="menuitem">
                   <p class="user-name">David Micheal</p>
                   <p class="user-email">davidmicheal@gmail.com</p>
                 </a>
               </li>
               <li>
-                <a href="https://admin.shopify.com">Manage account</a>
+                <a href="https://admin.shopify.com" role="menuitem">Manage account</a>
               </li>
               <li>
-                <a href="https://admin.shopify.com">Log out</a>
+                <a href="https://admin.shopify.com" role="menuitem">Log out</a>
               </li>
             </ul>
-          </nav>
+          </div>
         </div>
       </div>
     </header>
@@ -307,7 +320,7 @@
             </div>
           </div>
         </div>
-        <button id="toggle-setup-btn" class="btn-plain">
+        <button id="toggle-setup-btn" class="btn-plain" aria-haspopup="true" aria-controls="onboarding-steps" aria-expanded="false">
           <span>
             <svg
               aria-hidden="true"

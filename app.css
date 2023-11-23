@@ -11,7 +11,7 @@
 }
 
 body {
-  line-height: 1.5;
+  line-height: 150%;
   -webkit-font-smoothing: antialiased;
 }
 
@@ -175,30 +175,31 @@ body {
   fill: var(--color-gray-100);
 }
 
-.nav-menu-btn {
+.menu-btn {
   display: flex;
   align-items: center;
   gap: 0.5rem;
-  padding: 0 0 0 0.5rem;
+  padding: 2px 2px 2px 8px;
   background-color: var(--color-gray-200);
   color: var(--font-light);
   border-radius: 0.5rem;
   font-size: 12px;
+  font-weight: 500;
 }
 
-.nav-menu-btn:hover,
+.menu-btn:hover,
 .alerts-btn:hover,
-.nav-menu-btn:active,
+.menu-btn:active,
 .alerts-btn:active,
-.nav-menu-btn:focus-visible,
+.menu-btn:focus-visible,
 .alerts-btn:focus-visible {
   background-color: var(--font-mid-2);
 }
 
-.nav-menu-btn:focus-visible,
+.menu-btn:focus-visible,
 .alerts-btn:focus-visible {
   outline: 0;
-  box-shadow: 0px 0px 0px 3px #005bd3, 0px 0px 0px 1px #000;
+  box-shadow: 0px 0px 0px 1px #000, 0px 0px 0px 3px #005bd3;
 }
 
 .alerts-btn {
@@ -224,12 +225,13 @@ body {
 }
 
 .alerts,
-.nav-menu {
+.menu {
   transition: opacity 300ms ease-in, visibility 300ms ease-in;
+  z-index: 5;
 }
 
 .alerts.hidden,
-.nav-menu.hidden {
+.menu.hidden {
   display: block;
   opacity: 0;
   visibility: hidden;
@@ -263,10 +265,12 @@ body {
   display: grid;
   place-items: center;
   color: rgba(0, 0, 0, 0.4);
-  font-size: 10.5px;
+  font-size: 12px;
+  font-weight: 500;
+  line-height: 130%;
 }
 
-.nav-menu {
+.menu {
   position: fixed;
   top: 4rem;
   right: 1rem;
@@ -279,39 +283,39 @@ body {
   padding: 6px 0;
 }
 
-.nav-menu li {
+.menu li {
   padding: 0 6px;
   margin-bottom: 2px;
 }
 
-.nav-menu li:last-child {
+.menu li:last-child {
   margin-bottom: 0;
 }
 
-.nav-menu li.divider {
+.menu li.divider {
   border-bottom: 1px solid var(--stroke-s-50, #dbdbdb);
   margin-bottom: 4px;
   padding-bottom: 4px;
 }
 
-.nav-menu li a {
+.menu li a {
   padding: 6px;
   border-radius: 8px;
   display: inline-block;
   width: 100%;
 }
 
-.nav-menu li a:hover,
-.nav-menu li a:active {
+.menu li a:hover,
+.menu li a:active {
   background: var(--states-hover, #f1f1f1);
 }
 
-.nav-menu li a:focus-visible {
+.menu li a:focus-visible {
   outline: 0;
   border: 2px solid var(--states-focused);
 }
 
-.nav-menu li a.active {
+.menu li a.active {
   background-color: var(--color-background);
   font-weight: 600;
   display: flex;
@@ -320,11 +324,11 @@ body {
   padding: 4px 12px 4px 8px;
 }
 
-.nav-menu .user-name {
+.menu .user-name {
   font-weight: 500;
 }
 
-.nav-menu .user-email {
+.menu .user-email {
   font-size: 12px;
   color: var(--font-mid-2);
 }
@@ -396,6 +400,7 @@ body {
   padding: 0.5rem;
   color: var(--font-dark);
   font-size: 13px;
+  box-shadow: 0px 1px 0px 0px rgba(0, 0, 0, 0.05);
 }
 
 .onboarding > header {
@@ -564,7 +569,7 @@ body {
   border-right: 1.5px solid var(--stroke-light-100, rgba(255, 255, 255, 0.2));
   border-left: 1.5px solid var(--stroke-light-100, rgba(255, 255, 255, 0.2));
   background: #404040;
-  box-shadow: 0px 0px 0px 1.5px #333, 0px 1px 0px 1.5px #333, 0px 2px 0px 0px #000;
+  box-shadow: 0px 2px 0px 0px #000, 0px 1px 0px 1.5px #333, 0px 0px 0px 1.5px #333;
   font-size: 12px;
   color: var(--font-light);
   font-weight: 600;
@@ -577,7 +582,7 @@ body {
 .btn-dark:active {
   background: #2b2b2b;
   border: 0;
-  box-shadow: 0px 0px 0px 1.5px #333, 0px 3px 0px 0px #000 inset;
+  box-shadow: 0px 3px 0px 0px #000 inset, 0px 0px 0px 1.5px #333;
 }
 
 .btn-dark:focus-visible {
@@ -651,7 +656,7 @@ body {
 }
 
 @media screen and (max-width: 48rem) {
-  .nav-menu-btn {
+  .menu-btn {
     padding: 0;
   }
 
