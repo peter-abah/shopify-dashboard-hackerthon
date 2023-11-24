@@ -1,11 +1,11 @@
-"use strict";
-
 function app() {
   const alertsBtn = document.getElementById("alerts-btn");
   const alertsContainer = document.getElementById("alerts");
   const menuBtn = document.getElementById("menu-btn");
   const menu = document.getElementById("menu");
+  const menuItems = document.querySelectorAll('[role="menuitem"]');
   const popups = [alertsContainer, menu];
+  const popupBtns = [alertsBtn, menuBtn];
 
   const callout = document.getElementById("callout");
   const calloutCloseBtn = document.getElementById("callout-close-btn");
@@ -13,36 +13,67 @@ function app() {
   const toggleSetupBtn = document.getElementById("toggle-setup-btn");
   const onboardingStepsList = document.getElementById("onboarding-steps");
   const toggleOnboardingStepVisibiltyBtns = document.querySelectorAll(".onboarding-step-toggle");
-  const onboardingSteps = document.querySelectorAll(".onboarding-steps li");
+  const onboardingSteps = [...document.querySelectorAll(".onboarding-steps li")];
 
   const toggleOnboardingStepCompleteBtns = document.querySelectorAll(".check-step-btn");
   const progressbar = document.getElementById("progess-bar");
   const progressCount = document.getElementById("progress-count");
 
-  function togglePopups(event, popupBtn, popupBtnIndex) {
-    popups.forEach((popup, popupIndex) => {
-      if (popupBtnIndex === popupIndex) {
-        return;
-      }
+  function hidePopups() {
+    popups.forEach((popup, index) => {
       popup.classList.add("hidden");
+      popupBtns[index].setAttribute("aria-expanded", false);
     });
+  }
 
-    popups[popupBtnIndex].classList.toggle("hidden");
-    const isPopupOpen = !popups[popupBtnIndex].classList.contains("hidden");
-    popupBtn.setAttribute("aria-expanded", isPopupOpen);
-    if (isPopupOpen) {
+  function togglePopup(event, popupBtn, popupBtnIndex) {
+    const isPopupOpen = !popups[popupBtnIndex]?.classList.contains("hidden");
+    hidePopups();
+
+    if (!isPopupOpen) {
+      popups[popupBtnIndex]?.classList.remove("hidden");
+      popupBtn.setAttribute("aria-expanded", true);
       event.stopPropagation();
     }
   }
 
   function hidePopupsOnClickOutside(event) {
-    popups.forEach((element) => {
-      if (!element || element.contains(event.target)) {
-        return;
-      }
-
-      element.classList.add("hidden");
+    const isAnyPopupClicked = popups.some((popup, popupIndex) => {
+      return popup.contains(event.target);
     });
+    if (isAnyPopupClicked) {
+      return;
+    }
+
+    hidePopups();
+  }
+
+  function focusFirstMenuItem() {
+    menuItems.item(0).focus();
+  }
+
+  function handleEscapeKeyPress(event) {
+    if (event.key === "Escape") {
+      hidePopups();
+    }
+  }
+
+  function handleMenuItemKeyPress(event, menuItemIndex) {
+    let nextMenuItemIndex;
+
+    if (event.key === "ArrowDown" || event.key === "ArrowRight") {
+      nextMenuItemIndex = modNumber(menuItemIndex + 1, menuItems.length);
+    } else if (event.key === "ArrowUp" || event.key === "ArrowLeft") {
+      nextMenuItemIndex = modNumber(menuItemIndex - 1, menuItems.length);
+    } else if (event.key === "Home") {
+      nextMenuItemIndex = 0;
+    } else if (event.key === "End") {
+      nextMenuItemIndex = menuItems.length - 1;
+    } else {
+      return;
+    }
+
+    menuItems.item(nextMenuItemIndex).focus();
   }
 
   function toggleSetup() {
@@ -54,19 +85,25 @@ function app() {
   }
 
   function showOnboardingStep(onboardingStepIndex) {
+    hideOnboardingSteps();
+    onboardingSteps[onboardingStepIndex].classList.add("active");
+    toggleOnboardingStepVisibiltyBtns.item(onboardingStepIndex).setAttribute("aria-expanded", true);
+  }
+
+  function hideOnboardingSteps() {
     onboardingSteps.forEach((el) => el.classList.remove("active"));
-    onboardingSteps.item(onboardingStepIndex).classList.add("active");
+    toggleOnboardingStepVisibiltyBtns.forEach((btn) => btn.setAttribute("aria-expanded", false));
   }
 
   function toggleOnboardingStepComplete(toggleBtnIndex) {
-    const onboardingStep = onboardingSteps.item(toggleBtnIndex);
+    const onboardingStep = onboardingSteps[toggleBtnIndex];
     onboardingStep.dataset.isCompleted = onboardingStep.dataset.isCompleted ? "" : true;
 
     updateProgressBar();
 
     const nextStepIndex = findNextUncompletedStepIndex(onboardingSteps);
     if (nextStepIndex != -1) {
-      showOnboardingStep(onboardingSteps, nextStepIndex);
+      showOnboardingStep(nextStepIndex);
     }
   }
 
@@ -81,8 +118,32 @@ function app() {
     progressCount.innerText = completedStepsNo;
   }
 
-  alertsBtn.addEventListener("click", (event) => togglePopups(event, alertsBtn, 0));
-  menuBtn.addEventListener("click", (event) => togglePopups(event, menuBtn, 1));
+  // Modulus function that works with negative numbers
+  function modNumber(num, n) {
+    return ((num % n) + n) % n;
+  }
+
+  alertsBtn.addEventListener("click", (event) => {
+    togglePopup(event, alertsBtn, 0);
+  });
+
+  menuBtn.addEventListener("click", (event) => {
+    togglePopup(event, menuBtn, 1);
+
+    const isMenuOpen = !menu.classList.contains("hidden");
+    if (isMenuOpen) {
+      focusFirstMenuItem();
+    }
+  });
+
+  popups.forEach((popup) => {
+    popup.addEventListener("keyup", handleEscapeKeyPress);
+  });
+  alertsBtn.addEventListener('keyup', handleEscapeKeyPress)
+  menuItems.forEach((menuItem, index) =>
+    menuItem.addEventListener("keyup", (event) => handleMenuItemKeyPress(event, index))
+  );
+
   document.addEventListener("click", hidePopupsOnClickOutside);
 
   calloutCloseBtn.addEventListener("click", () => {

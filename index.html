@@ -17,7 +17,7 @@
     <header class="header">
       <div>
         <h1>
-          <a href="https://shopify.com" target="_blank">
+          <a href="https://shopify.com" >
             <span class="sr-only">Shopify</span>
             <svg
               class="large-logo"
@@ -99,7 +99,7 @@
           <input id="search-input" type="text" placeholder="Search" class="search-input" />
         </section>
 
-        <div class="flex-wrapper">
+        <div class="btns-wrapper">
           <section>
             <button
               class="alerts-btn"
@@ -130,7 +130,7 @@
               <header>
                 <h2 id="alerts-title">Alerts</h2>
                 <div class="flex-wrapper">
-                  <button disabled>
+                  <button>
                     <span class="sr-only">Filter</span>
                     <svg
                       aria-hidden="true"
@@ -156,7 +156,7 @@
                     </svg>
                   </button>
 
-                  <button disabled>
+                  <button>
                     <span class="sr-only">Check all</span>
                     <svg
                       aria-hidden="true"
@@ -198,14 +198,15 @@
               <span class="user-img" aria-label="User image">DC</span>
             </button>
 
-            <ul id="menu" class="menu hidden" role="menu" aria-label="User Menu">
+            <ul id="menu" class="menu hidden" role="menu" aria-labelledby="menu-title">
               <li>
-                <a href="https://admin.shopify.com" class="active" role="menuitem">
+                <h2 href="https://admin.shopify.com" id="menu-title" class="menu-title">
                   <div class="flex-wrapper">
                     <span class="user-img" aria-label="User image">DC</span
                     ><span>Davii Collections</span>
                   </div>
                   <svg
+                    class="check-icon"
                     aria-hidden="true"
                     class="icon"
                     width="16"
@@ -225,7 +226,8 @@
                       />
                     </g>
                   </svg>
-                </a>
+                  <span class="sr-only">User Menu</span>
+                </h2>
               </li>
               <li class="divider">
                 <a href="https://admin.shopify.com" role="menuitem">
@@ -267,7 +269,7 @@
               </li>
 
               <li>
-                <a href="https://admin.shopify.com" role="menuitem">
+                <a href="https://admin.shopify.com" role="menuitem" class="user-info">
                   <p class="user-name">David Micheal</p>
                   <p class="user-email">davidmicheal@gmail.com</p>
                 </a>
@@ -287,7 +289,7 @@
     <section id="callout" class="callout">
       <div class="flex-wrapper">
         <p>Extend your trial for $1/month for 3 months on select plans.</p>
-        <a href="https://shopify.com/pricing" class="btn-light">Select a plan</a>
+        <a href="https://shopify.com/pricing"  class="btn-light">Select a plan</a>
       </div>
       <button class="close-btn" id="callout-close-btn">
         <span class="sr-only">Close callout</span>
@@ -320,22 +322,24 @@
             </div>
           </div>
         </div>
-        <button id="toggle-setup-btn" class="btn-plain" aria-haspopup="true" aria-controls="onboarding-steps" aria-expanded="false">
+        <button
+          id="toggle-setup-btn"
+          class="btn-plain"
+          aria-haspopup="true"
+          aria-controls="onboarding-steps"
+          aria-expanded="false"
+        >
           <span>
             <svg
               aria-hidden="true"
               class="icon"
-              width="41"
-              height="40"
-              viewBox="0 0 21 20"
+              width="20"
+              height="20"
+              viewBox="0 0 20 20"
               fill="none"
               xmlns="http://www.w3.org/2000/svg"
             >
-              <path
-                fill-rule="evenodd"
-                clip-rule="evenodd"
-                d="M6.21967 8.46967C6.51256 8.17678 6.98744 8.17678 7.28033 8.46967L10.75 11.9393L14.2197 8.46967C14.5126 8.17678 14.9874 8.17678 15.2803 8.46967C15.5732 8.76256 15.5732 9.23744 15.2803 9.53033L11.2803 13.5303C10.9874 13.8232 10.5126 13.8232 10.2197 13.5303L6.21967 9.53033C5.92678 9.23744 5.92678 8.76256 6.21967 8.46967Z"
-              />
+            <path fill-rule="evenodd" clip-rule="evenodd" d="M5.71967 8.46967C6.01256 8.17678 6.48744 8.17678 6.78033 8.46967L10.25 11.9393L13.7197 8.46967C14.0126 8.17678 14.4874 8.17678 14.7803 8.46967C15.0732 8.76256 15.0732 9.23744 14.7803 9.53033L10.7803 13.5303C10.4874 13.8232 10.0126 13.8232 9.71967 13.5303L5.71967 9.53033C5.42678 9.23744 5.42678 8.76256 5.71967 8.46967Z" fill="#4A4A4A"/>
             </svg>
             <span class="sr-only">Expand or collapse setup steps</span>
           </span>
@@ -430,9 +434,18 @@
               </svg>
               <span class="sr-only">Toggle Complete</span>
             </button>
-            <h3><button class="onboarding-step-toggle">Customize your online store</button></h3>
+            <h3>
+              <button
+                class="onboarding-step-toggle"
+                aria-haspopup="true"
+                aria-expanded="true"
+                aria-controls="onboarding-step-1"
+              >
+                Customize your online store
+              </button>
+            </h3>
           </div>
-          <div class="content">
+          <div class="content" id="onboarding-step-1">
             <p>
               Choose a theme and add your logo, colors, and images to reflect your brand.
               <a
@@ -531,9 +544,18 @@
               </svg>
               <span class="sr-only">Toggle Complete</span>
             </button>
-            <h3><button class="onboarding-step-toggle">Add your first product</button></h3>
+            <h3>
+              <button
+                class="onboarding-step-toggle"
+                aria-haspopup="true"
+                aria-expanded="false"
+                aria-controls="onboarding-step-2"
+              >
+                Add your first product
+              </button>
+            </h3>
           </div>
-          <div class="content">
+          <div class="content" id="onboarding-step-2">
             <p>
               Write a description, add photos, and set pricing for the products you plan to sell.
               <a
@@ -635,9 +657,18 @@
               </svg>
               <span class="sr-only">Toggle Complete</span>
             </button>
-            <h3><button class="onboarding-step-toggle">Add a custom domain</button></h3>
+            <h3>
+              <button
+                class="onboarding-step-toggle"
+                aria-haspopup="true"
+                aria-expanded="false"
+                aria-controls="onboarding-step-3"
+              >
+                Add a custom domain
+              </button>
+            </h3>
           </div>
-          <div class="content">
+          <div class="content" id="onboarding-step-3">
             <p>
               Your current domain is 222219.myshopify.com but you can add a custom domain to help
               customers find your online store.
@@ -738,9 +769,18 @@
               </svg>
               <span class="sr-only">Toggle Complete</span>
             </button>
-            <h3><button class="onboarding-step-toggle">Name your store</button></h3>
+            <h3>
+              <button
+                class="onboarding-step-toggle"
+                aria-haspopup="true"
+                aria-expanded="false"
+                aria-controls="onboarding-step-4"
+              >
+                Name your store
+              </button>
+            </h3>
           </div>
-          <div class="content">
+          <div class="content" id="onboarding-step-4">
             <p>
               Your temporary store name is currently Davii collections. The store name appears in
               your admin and your online store.
@@ -841,9 +881,18 @@
               </svg>
               <span class="sr-only">Toggle Complete</span>
             </button>
-            <h3><button class="onboarding-step-toggle">Setup a payment provider</button></h3>
+            <h3>
+              <button
+                class="onboarding-step-toggle"
+                aria-haspopup="true"
+                aria-expanded="false"
+                aria-controls="onboarding-step-5"
+              >
+                Setup a payment provider
+              </button>
+            </h3>
           </div>
-          <div class="content">
+          <div class="content" id="onboarding-step-5">
             <p>
               Choose a payment provider to start accepting payments. You’ll need to create an
               account with the payment provider and set it up with your Shopify store.
