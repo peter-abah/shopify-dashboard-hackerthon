@@ -14,7 +14,7 @@
     <link rel="stylesheet" href="./app.css" />
   </head>
   <body>
-    <header class="header">
+    <section class="top-bar">
       <div>
         <h1>
           <a href="https://shopify.com">
@@ -284,8 +284,9 @@
           </div>
         </div>
       </div>
-    </header>
+    </section>
 
+    <span aria-live="polite" id="callout-notify"></span>
     <section id="callout" class="callout">
       <div class="flex-wrapper">
         <p>Extend your trial for $1/month for 3 months on select plans.</p>
@@ -346,15 +347,16 @@
                 fill="#4A4A4A"
               />
             </svg>
-            <span class="sr-only">Expand or collapse setup steps</span>
+            <span class="sr-only">Expand or collapse setup</span>
           </span>
         </button>
       </header>
+      <span id="toggle-setup-notify" aria-live="polite"></span>
 
       <ul class="onboarding-steps" id="onboarding-steps">
         <li class="active">
           <div class="flex-wrapper">
-            <button class="check-step-btn">
+            <button class="check-step-btn" aria-label="Mark step complete">
               <svg
                 aria-hidden="true"
                 xmlns="http://www.w3.org/2000/svg"
@@ -375,6 +377,7 @@
                 />
               </svg>
               <svg
+                aria-hidden="true"
                 xmlns="http://www.w3.org/2000/svg"
                 width="24"
                 height="24"
@@ -392,6 +395,7 @@
                 />
               </svg>
               <svg
+                aria-hidden="true"
                 xmlns="http://www.w3.org/2000/svg"
                 width="24"
                 height="24"
@@ -410,6 +414,7 @@
                 />
               </svg>
               <svg
+                aria-hidden="true"
                 xmlns="http://www.w3.org/2000/svg"
                 width="24"
                 height="24"
@@ -425,6 +430,7 @@
                 />
               </svg>
               <svg
+                aria-hidden="true"
                 width="24"
                 height="24"
                 viewBox="0 0 24 24"
@@ -437,7 +443,7 @@
                   fill="#fff"
                 ></path>
               </svg>
-              <span class="sr-only">Toggle Complete</span>
+              <span aria-live="polite" class="check-step-btn-notify"></span>
             </button>
             <h3>
               <button
@@ -464,7 +470,7 @@
         </li>
         <li>
           <div class="flex-wrapper">
-            <button class="check-step-btn">
+            <button class="check-step-btn" aria-label="Mark step complete">
               <svg
                 aria-hidden="true"
                 xmlns="http://www.w3.org/2000/svg"
@@ -485,6 +491,7 @@
                 />
               </svg>
               <svg
+                aria-hidden="true"
                 xmlns="http://www.w3.org/2000/svg"
                 width="24"
                 height="24"
@@ -502,6 +509,7 @@
                 />
               </svg>
               <svg
+                aria-hidden="true"
                 xmlns="http://www.w3.org/2000/svg"
                 width="24"
                 height="24"
@@ -520,6 +528,7 @@
                 />
               </svg>
               <svg
+                aria-hidden="true"
                 xmlns="http://www.w3.org/2000/svg"
                 width="24"
                 height="24"
@@ -535,6 +544,7 @@
                 />
               </svg>
               <svg
+                aria-hidden="true"
                 width="24"
                 height="24"
                 viewBox="0 0 24 24"
@@ -547,7 +557,7 @@
                   fill="#fff"
                 ></path>
               </svg>
-              <span class="sr-only">Toggle Complete</span>
+              <span aria-live="polite" class="check-step-btn-notify"></span>
             </button>
             <h3>
               <button
@@ -577,7 +587,7 @@
         </li>
         <li>
           <div class="flex-wrapper">
-            <button class="check-step-btn">
+            <button class="check-step-btn" aria-label="Mark step complete">
               <svg
                 aria-hidden="true"
                 xmlns="http://www.w3.org/2000/svg"
@@ -598,6 +608,7 @@
                 />
               </svg>
               <svg
+                aria-hidden="true"
                 xmlns="http://www.w3.org/2000/svg"
                 width="24"
                 height="24"
@@ -615,6 +626,7 @@
                 />
               </svg>
               <svg
+                aria-hidden="true"
                 xmlns="http://www.w3.org/2000/svg"
                 width="24"
                 height="24"
@@ -633,6 +645,7 @@
                 />
               </svg>
               <svg
+                aria-hidden="true"
                 xmlns="http://www.w3.org/2000/svg"
                 width="24"
                 height="24"
@@ -648,6 +661,7 @@
                 />
               </svg>
               <svg
+                aria-hidden="true"
                 width="24"
                 height="24"
                 viewBox="0 0 24 24"
@@ -660,7 +674,7 @@
                   fill="#fff"
                 ></path>
               </svg>
-              <span class="sr-only">Toggle Complete</span>
+              <span aria-live="polite" class="check-step-btn-notify"></span>
             </button>
             <h3>
               <button
@@ -689,7 +703,7 @@
 
         <li>
           <div class="flex-wrapper">
-            <button class="check-step-btn">
+            <button class="check-step-btn" aria-label="Mark step complete">
               <svg
                 aria-hidden="true"
                 xmlns="http://www.w3.org/2000/svg"
@@ -710,6 +724,7 @@
                 />
               </svg>
               <svg
+                aria-hidden="true"
                 xmlns="http://www.w3.org/2000/svg"
                 width="24"
                 height="24"
@@ -727,6 +742,7 @@
                 />
               </svg>
               <svg
+                aria-hidden="true"
                 xmlns="http://www.w3.org/2000/svg"
                 width="24"
                 height="24"
@@ -745,6 +761,7 @@
                 />
               </svg>
               <svg
+                aria-hidden="true"
                 xmlns="http://www.w3.org/2000/svg"
                 width="24"
                 height="24"
@@ -760,6 +777,7 @@
                 />
               </svg>
               <svg
+                aria-hidden="true"
                 width="24"
                 height="24"
                 viewBox="0 0 24 24"
@@ -772,7 +790,7 @@
                   fill="#fff"
                 ></path>
               </svg>
-              <span class="sr-only">Toggle Complete</span>
+              <span aria-live="polite" class="check-step-btn-notify"></span>
             </button>
             <h3>
               <button
@@ -801,7 +819,7 @@
 
         <li>
           <div class="flex-wrapper">
-            <button class="check-step-btn">
+            <button class="check-step-btn" aria-label="Mark step complete">
               <svg
                 aria-hidden="true"
                 xmlns="http://www.w3.org/2000/svg"
@@ -822,6 +840,7 @@
                 />
               </svg>
               <svg
+                aria-hidden="true"
                 xmlns="http://www.w3.org/2000/svg"
                 width="24"
                 height="24"
@@ -839,6 +858,7 @@
                 />
               </svg>
               <svg
+                aria-hidden="true"
                 xmlns="http://www.w3.org/2000/svg"
                 width="24"
                 height="24"
@@ -857,6 +877,7 @@
                 />
               </svg>
               <svg
+                aria-hidden="true"
                 xmlns="http://www.w3.org/2000/svg"
                 width="24"
                 height="24"
@@ -872,6 +893,7 @@
                 />
               </svg>
               <svg
+                aria-hidden="true"
                 width="24"
                 height="24"
                 viewBox="0 0 24 24"
@@ -884,7 +906,7 @@
                   fill="#fff"
                 ></path>
               </svg>
-              <span class="sr-only">Toggle Complete</span>
+              <span aria-live="polite" class="check-step-btn-notify"></span>
             </button>
             <h3>
               <button
