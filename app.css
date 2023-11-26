@@ -60,6 +60,7 @@ button {
   height: fit-content;
   padding: 0;
   cursor: pointer;
+  text-align: start;
 }
 
 meter {
@@ -497,21 +498,24 @@ body {
   transition: width 500ms linear;
 }
 
-.onboarding-steps {
+.setup {
   margin-top: 1rem;
-  max-height: 309px;
-  transition: max-height 500ms ease-in-out;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  max-height: 25rem;
+  transition: all 500ms ease-in-out;
   overflow: hidden;
 }
 
-.onboarding-steps.hidden {
+.setup.hidden {
   display: block;
   max-height: 0;
   margin: 0;
   visibility: hidden;
 }
 
-.onboarding-steps li {
+.setup-step {
   padding: 0.5rem;
   border-radius: 10px;
   position: relative;
@@ -548,73 +552,73 @@ body {
   opacity: 1;
 }
 
-.onboarding-steps li svg:nth-of-type(4) {
+.setup-step svg:nth-of-type(4) {
   transition: transform 300ms linear;
 }
 
-.onboarding-steps li[data-is-completed="true"] svg:nth-of-type(n) {
+.setup-step[data-is-completed="true"] svg:nth-of-type(n) {
   opacity: 0;
 }
 
-.onboarding-steps li[data-is-completed="true"] svg:nth-of-type(4) {
+.setup-step[data-is-completed="true"] svg:nth-of-type(4) {
   opacity: 1;
   transform: rotate(360deg);
 }
 
-.onboarding-steps li svg:nth-of-type(5) {
+.setup-step svg:nth-of-type(5) {
   transition-property: opacity, transform;
   transition-delay: 300ms, 300ms;
   transition-duration: 100ms, 100ms;
   transform: scale(0.5) rotate(-90deg);
 }
 
-.onboarding-steps li[data-is-completed="true"] svg:nth-of-type(5) {
+.setup-step[data-is-completed="true"] svg:nth-of-type(5) {
   opacity: 1;
   transform: scale(1) rotate(0deg);
 }
 
-.onboarding-steps h3 {
+.setup h3 {
   font-weight: 500;
 }
 
-.onboarding-steps li.active h3 {
+.setup-step.active h3 {
   font-weight: 600;
 }
 
-.onboarding-steps li .content {
+.setup-step .content {
   margin-left: 2rem;
   max-width: 30.25rem;
   display: none;
 }
 
-.onboarding-steps li.active {
+.setup-step.active {
   background-color: #f3f3f3;
   padding-bottom: 0.75rem;
 }
 
-.onboarding-steps li.active .content {
+.setup-step.active .content {
   display: block;
 }
 
-.onboarding-steps li p {
+.setup-step p {
   margin: 0.75rem 0 1rem;
   color: var(--font-mid-2);
   font-weight: 500;
 }
 
-.onboarding-steps li a {
+.setup-step a {
   color: var(--states-focused);
   font-size: 0.875rem;
   font-weight: 500;
 }
 
-.onboarding-steps img {
+.setup img {
   position: absolute;
   top: 0.5rem;
   right: 0.5rem;
 }
 
-.onboarding-steps .btns-wrapper {
+.setup .btns-wrapper {
   display: flex;
   gap: 1rem;
 }
@@ -761,7 +765,7 @@ body {
     border-radius: 0;
   }
 
-  .onboarding-steps img {
+  .setup img {
     display: none;
   }
 }

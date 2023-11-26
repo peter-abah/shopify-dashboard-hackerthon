@@ -8,34 +8,48 @@ function app() {
   // DOM elements related with the alerts and menu
   const alertsBtn = document.getElementById("alerts-btn");
   const alertsContainer = document.getElementById("alerts");
+  const alertsARIANotification = document.getElementById("alerts-notify");
+
   const menuBtn = document.getElementById("menu-btn");
   const menu = document.getElementById("menu");
   const menuItems = document.querySelectorAll('[role="menuitem"]');
+  const menuARIANotification = document.getElementById("menu-notify");
+
   const popups = [alertsContainer, menu];
   const popupBtns = [alertsBtn, menuBtn];
+  const popupsARIANotification = [alertsARIANotification, menuARIANotification];
 
   // DOM elements for the callout section
   const callout = document.getElementById("callout");
   const calloutCloseBtn = document.getElementById("callout-close-btn");
-  const calloutNotify = document.getElementById("callout-notify");
+  const calloutARIANotification = document.getElementById("callout-notify");
 
-  // DOM elements for the onboarding steps section
+  // DOM elements for the setup steps section
   const toggleSetupBtn = document.getElementById("toggle-setup-btn");
-  const setup = document.getElementById("onboarding-steps");
-  const toggleSetupNotify = document.getElementById('toggle-setup-notify')
+  const setup = document.getElementById("setup");
+  const toggleSetupARIANotification = document.getElementById("toggle-setup-notify");
 
-  const toggleOnboardingStepVisibiltyBtns = document.querySelectorAll(".onboarding-step-toggle");
-  const onboardingSteps = [...document.querySelectorAll(".onboarding-steps li")];
+  const toggleSetupStepVisibiltyBtns = document.querySelectorAll(".setup-step-toggle");
+  const setupSteps = [...document.querySelectorAll(".setup-step")];
+  const setupStepsARIANotifications = document.querySelectorAll(".setup-step-notify");
 
-  const toggleOnboardingStepCompleteBtns = document.querySelectorAll(".check-step-btn");
+  const toggleSetupStepCompleteBtns = document.querySelectorAll(".check-step-btn");
+  const toggleCompleteARIANotifications = document.querySelectorAll(".check-step-btn-notify");
   const progressbar = document.getElementById("progess-bar");
   const progressCount = document.getElementById("progress-count");
 
   // Remove all popups from view
   function hidePopups() {
     popups.forEach((popup, index) => {
+      const isPopupOpen = !popup.classList.contains(HIDDEN_CLASS);
+      if (!isPopupOpen) {
+        return;
+      }
+
       popup.classList.add(HIDDEN_CLASS);
       popupBtns[index].setAttribute("aria-expanded", false);
+      const popupARIANotification = popupsARIANotification[index];
+      popupARIANotification.setAttribute("aria-label", popupARIANotification.dataset.closeLabel);
     });
   }
 
@@ -49,6 +63,8 @@ function app() {
     if (!isPopupOpen) {
       popup.classList.remove(HIDDEN_CLASS);
       popupBtn.setAttribute("aria-expanded", true);
+      const popupARIANotification = popupsARIANotification[popupIndex];
+      popupARIANotification.setAttribute("aria-label", popupARIANotification.dataset.openLabel);
       event.stopPropagation();
     }
   }
@@ -100,75 +116,90 @@ function app() {
     menuItems.item(nextMenuItemIndex).focus();
   }
 
-  // Toggle visibility of onboarding steps
+  // Toggle visibility of setup steps
   function toggleSetup() {
     setup.classList.toggle(HIDDEN_CLASS);
 
     const isOpen = !setup.classList.contains(HIDDEN_CLASS);
     if (isOpen) {
-      toggleSetupNotify.setAttribute("aria-label", "Setup opened");
+      toggleSetupARIANotification.setAttribute("aria-label", "Setup opened");
     } else {
-      toggleSetupNotify.setAttribute("aria-label", "Setup closed");
+      toggleSetupARIANotification.setAttribute("aria-label", "Setup closed");
     }
 
     toggleSetupBtn.setAttribute("aria-expanded", isOpen);
     toggleSetupBtn.dataset.isOpen = isOpen ? "" : true;
   }
 
-  // Hide other onboarding steps and show active one
-  function showOnboardingStep(onboardingStepIndex) {
-    hideOnboardingSteps();
-    onboardingSteps[onboardingStepIndex].classList.add(ACTIVE_CLASS);
-    toggleOnboardingStepVisibiltyBtns.item(onboardingStepIndex).setAttribute("aria-expanded", true);
+  // Hide other setup steps and show active one
+  function showSetupStep(setupStepIndex) {
+    hideSetupSteps();
+    setupSteps[setupStepIndex].classList.add(ACTIVE_CLASS);
+
+    const setupStepARIANotification = setupStepsARIANotifications.item(setupStepIndex);
+    setupStepARIANotification.setAttribute("aria-label", `Setup step ${setupStepIndex + 1} opened`);
+
+    toggleSetupStepVisibiltyBtns.item(setupStepIndex).setAttribute("aria-expanded", true);
   }
 
-  // Hide other onboarding steps
-  function hideOnboardingSteps() {
-    onboardingSteps.forEach((el) => el.classList.remove(ACTIVE_CLASS));
-    toggleOnboardingStepVisibiltyBtns.forEach((btn) => btn.setAttribute("aria-expanded", false));
+  // Hide other setup steps
+  function hideSetupSteps() {
+    setupSteps.forEach((el, index) => {
+      const isClosed = !el.classList.contains(ACTIVE_CLASS);
+      if (isClosed) {
+        return;
+      }
+
+      el.classList.remove(ACTIVE_CLASS);
+      setupStepsARIANotifications
+        .item(index)
+        .setAttribute("aria-label", `Setup step ${index + 1} closed`);
+    });
+
+    toggleSetupStepVisibiltyBtns.forEach((btn) => btn.setAttribute("aria-expanded", false));
   }
 
-  // Update aria attributes for check button for onboarding steps
+  // Update aria attributes for check button for setup steps
   function updateARIAForToggleCompleteBtn(toggleBtnIndex) {
-    const onboardingStep = onboardingSteps[toggleBtnIndex];
-    const isOnboardingStepComplete = !!onboardingStep.dataset.isCompleted;
-    const toggleBtn = toggleOnboardingStepCompleteBtns[toggleBtnIndex];
-    const toggleNotify = toggleBtn.querySelector(".check-step-btn-notify");
+    const setupStep = setupSteps[toggleBtnIndex];
+    const isSetupStepComplete = !!setupStep.dataset.isCompleted;
+    const toggleBtn = toggleSetupStepCompleteBtns[toggleBtnIndex];
+    const toggleCompleteARIANotification = toggleCompleteARIANotifications.item(toggleBtnIndex);
 
-    if (isOnboardingStepComplete) {
+    if (isSetupStepComplete) {
       toggleBtn.setAttribute("aria-label", "Mark step incomplete");
-      toggleNotify.setAttribute("aria-label", "Setup step marked complete");
+      toggleCompleteARIANotification.setAttribute("aria-label", "Setup step marked complete");
     } else {
-      toggleNotify.setAttribute("aria-label", "Setup step marked incomplete");
+      toggleCompleteARIANotification.setAttribute("aria-label", "Setup step marked incomplete");
       toggleBtn.setAttribute("aria-label", "Mark step complete");
     }
   }
 
-  // Toggle onboarding step complete, update progress indicator and open next
-  // uncompleted onboarding step
-  function toggleOnboardingStepComplete(toggleBtnIndex) {
-    const onboardingStep = onboardingSteps[toggleBtnIndex];
-    const isOnboardingStepComplete = !!onboardingStep.dataset.isCompleted;
-    onboardingStep.dataset.isCompleted = isOnboardingStepComplete ? "" : true;
+  // Toggle setup step complete, update progress indicator and open next
+  // uncompleted setup step
+  function toggleSetupStepComplete(toggleBtnIndex) {
+    const setupStep = setupSteps[toggleBtnIndex];
+    const isSetupStepComplete = !!setupStep.dataset.isCompleted;
+    setupStep.dataset.isCompleted = isSetupStepComplete ? "" : true;
 
     updateProgressBar();
     updateARIAForToggleCompleteBtn(toggleBtnIndex);
 
-    const nextStepIndex = findNextUncompletedStepIndex(onboardingSteps);
+    const nextStepIndex = findNextUncompletedStepIndex(setupSteps);
     if (nextStepIndex !== -1) {
-      showOnboardingStep(nextStepIndex);
+      showSetupStep(nextStepIndex);
     }
   }
 
-  // Return index of next uncompleted onboarding step
-  function findNextUncompletedStepIndex(onboardingSteps) {
-    const nextStepIndex = onboardingSteps.findIndex((step) => !step.dataset.isCompleted);
+  // Return index of next uncompleted setup step
+  function findNextUncompletedStepIndex(setupSteps) {
+    const nextStepIndex = setupSteps.findIndex((step) => !step.dataset.isCompleted);
     return nextStepIndex;
   }
 
   // Update progress count and indicator
   function updateProgressBar() {
-    const completedStepsNo = onboardingSteps.filter((step) => step.dataset.isCompleted).length;
+    const completedStepsNo = setupSteps.filter((step) => step.dataset.isCompleted).length;
     progressbar.style.width = `${completedStepsNo * 20}%`;
     progressCount.innerText = completedStepsNo;
   }
@@ -209,16 +240,16 @@ function app() {
   // Hide callout
   calloutCloseBtn.addEventListener("click", () => {
     callout.classList.add(HIDDEN_CLASS);
-    calloutNotify.setAttribute("aria-label", "Callout removed");
+    calloutARIANotification.setAttribute("aria-label", "Callout removed");
   });
 
   toggleSetupBtn.addEventListener("click", toggleSetup);
-  toggleOnboardingStepVisibiltyBtns.forEach((btn, btnIndex) => {
-    btn.addEventListener("click", () => showOnboardingStep(btnIndex));
+  toggleSetupStepVisibiltyBtns.forEach((btn, btnIndex) => {
+    btn.addEventListener("click", () => showSetupStep(btnIndex));
   });
 
-  toggleOnboardingStepCompleteBtns.forEach((btn, btnIndex) => {
-    btn.addEventListener("click", () => toggleOnboardingStepComplete(btnIndex));
+  toggleSetupStepCompleteBtns.forEach((btn, btnIndex) => {
+    btn.addEventListener("click", () => toggleSetupStepComplete(btnIndex));
   });
 }
 

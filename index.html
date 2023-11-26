@@ -124,8 +124,14 @@
                   fill="#fff"
                 />
               </svg>
-              <span class="sr-only">Show alerts</span>
+              <span class="sr-only">Alerts button</span>
             </button>
+            <span
+              aria-live="polite"
+              id="alerts-notify"
+              data-open-label="Alerts opened"
+              data-close-label="Alerts closed"
+            ></span>
             <div class="alerts hidden" id="alerts" role="dialog" aria-labelledby="alerts-title">
               <header>
                 <h2 id="alerts-title">Alerts</h2>
@@ -193,11 +199,17 @@
               aria-haspopup="true"
               aria-expanded="false"
               aria-controls="menu"
+              aria-label="Menu button"
             >
               <span class="store-name">Davii Collections</span>
               <span class="user-img" aria-label="User image">DC</span>
             </button>
-
+            <span
+              aria-live="polite"
+              id="menu-notify"
+              data-open-label="Menu opened"
+              data-close-label="Menu closed"
+            ></span>
             <ul id="menu" class="menu hidden" role="menu" aria-labelledby="menu-title">
               <li>
                 <h2 href="https://admin.shopify.com" id="menu-title" class="menu-title">
@@ -233,6 +245,7 @@
                 <a href="https://admin.shopify.com" role="menuitem">
                   <div class="flex-wrapper">
                     <svg
+                      aria-hidden="true"
                       class="icon"
                       width="41"
                       height="40"
@@ -327,7 +340,7 @@
           id="toggle-setup-btn"
           class="btn-plain"
           aria-haspopup="true"
-          aria-controls="onboarding-steps"
+          aria-controls="setup"
           aria-expanded="true"
         >
           <span>
@@ -353,8 +366,8 @@
       </header>
       <span id="toggle-setup-notify" aria-live="polite"></span>
 
-      <ul class="onboarding-steps" id="onboarding-steps">
-        <li class="active">
+      <ul class="setup" id="setup">
+        <li class="setup-step active">
           <div class="flex-wrapper">
             <button class="check-step-btn" aria-label="Mark step complete">
               <svg
@@ -447,16 +460,17 @@
             </button>
             <h3>
               <button
-                class="onboarding-step-toggle"
+                class="setup-step-toggle"
                 aria-haspopup="true"
                 aria-expanded="true"
-                aria-controls="onboarding-step-1"
+                aria-controls="setup-step-1"
               >
                 Customize your online store
               </button>
             </h3>
           </div>
-          <div class="content" id="onboarding-step-1">
+          <span aria-live="polite" class="setup-step-notify"></span>
+          <div class="content" id="setup-step-1">
             <p>
               Choose a theme and add your logo, colors, and images to reflect your brand.
               <a
@@ -468,7 +482,7 @@
             <img src="https://crushingit.tech/hackathon-assets/customise-store.png" alt="" />
           </div>
         </li>
-        <li>
+        <li class="setup-step">
           <div class="flex-wrapper">
             <button class="check-step-btn" aria-label="Mark step complete">
               <svg
@@ -561,16 +575,17 @@
             </button>
             <h3>
               <button
-                class="onboarding-step-toggle"
+                class="setup-step-toggle"
                 aria-haspopup="true"
                 aria-expanded="false"
-                aria-controls="onboarding-step-2"
+                aria-controls="setup-step-2"
               >
                 Add your first product
               </button>
             </h3>
           </div>
-          <div class="content" id="onboarding-step-2">
+          <span aria-live="polite" class="setup-step-notify"></span>
+          <div class="content" id="setup-step-2">
             <p>
               Write a description, add photos, and set pricing for the products you plan to sell.
               <a
@@ -585,7 +600,7 @@
             <img src="https://crushingit.tech/hackathon-assets/product.png" alt="" />
           </div>
         </li>
-        <li>
+        <li class="setup-step">
           <div class="flex-wrapper">
             <button class="check-step-btn" aria-label="Mark step complete">
               <svg
@@ -678,16 +693,17 @@
             </button>
             <h3>
               <button
-                class="onboarding-step-toggle"
+                class="setup-step-toggle"
                 aria-haspopup="true"
                 aria-expanded="false"
-                aria-controls="onboarding-step-3"
+                aria-controls="setup-step-3"
               >
                 Add a custom domain
               </button>
             </h3>
           </div>
-          <div class="content" id="onboarding-step-3">
+          <span aria-live="polite" class="setup-step-notify"></span>
+          <div class="content" id="setup-step-3">
             <p>
               Your current domain is 222219.myshopify.com but you can add a custom domain to help
               customers find your online store.
@@ -701,7 +717,7 @@
           </div>
         </li>
 
-        <li>
+        <li class="setup-step">
           <div class="flex-wrapper">
             <button class="check-step-btn" aria-label="Mark step complete">
               <svg
@@ -794,16 +810,17 @@
             </button>
             <h3>
               <button
-                class="onboarding-step-toggle"
+                class="setup-step-toggle"
                 aria-haspopup="true"
                 aria-expanded="false"
-                aria-controls="onboarding-step-4"
+                aria-controls="setup-step-4"
               >
                 Name your store
               </button>
             </h3>
           </div>
-          <div class="content" id="onboarding-step-4">
+          <span aria-live="polite" class="setup-step-notify"></span>
+          <div class="content" id="setup-step-4">
             <p>
               Your temporary store name is currently Davii collections. The store name appears in
               your admin and your online store.
@@ -817,7 +834,7 @@
           </div>
         </li>
 
-        <li>
+        <li class="setup-step">
           <div class="flex-wrapper">
             <button class="check-step-btn" aria-label="Mark step complete">
               <svg
@@ -910,16 +927,17 @@
             </button>
             <h3>
               <button
-                class="onboarding-step-toggle"
+                class="setup-step-toggle"
                 aria-haspopup="true"
                 aria-expanded="false"
-                aria-controls="onboarding-step-5"
+                aria-controls="setup-step-5"
               >
                 Setup a payment provider
               </button>
             </h3>
           </div>
-          <div class="content" id="onboarding-step-5">
+          <span aria-live="polite" class="setup-step-notify"></span>
+          <div class="content" id="setup-step-5">
             <p>
               Choose a payment provider to start accepting payments. You’ll need to create an
               account with the payment provider and set it up with your Shopify store.
