@@ -139,7 +139,10 @@ function app() {
     const setupStepARIANotification = setupStepsARIANotifications.item(setupStepIndex);
     setupStepARIANotification.setAttribute("aria-label", `Setup step ${setupStepIndex + 1} opened`);
 
-    toggleSetupStepVisibiltyBtns.item(setupStepIndex).setAttribute("aria-expanded", true);
+    const toggleVisibilityBtn = toggleSetupStepVisibiltyBtns.item(setupStepIndex)
+    toggleVisibilityBtn.setAttribute("aria-expanded", true);
+    const toggleCompleteBtn = toggleSetupStepCompleteBtns.item(setupStepIndex)
+    toggleCompleteBtn.focus();
   }
 
   // Hide other setup steps
@@ -185,16 +188,30 @@ function app() {
     updateProgressBar();
     updateARIAForToggleCompleteBtn(toggleBtnIndex);
 
-    const nextStepIndex = findNextUncompletedStepIndex(setupSteps);
+    const nextStepIndex = findNextUncompletedStepIndex(toggleBtnIndex);
     if (nextStepIndex !== -1) {
       showSetupStep(nextStepIndex);
     }
   }
 
   // Return index of next uncompleted setup step
-  function findNextUncompletedStepIndex(setupSteps) {
-    const nextStepIndex = setupSteps.findIndex((step) => !step.dataset.isCompleted);
-    return nextStepIndex;
+  function findNextUncompletedStepIndex(setupStepIndex) {
+    // Check next steps after current step
+    for (let i = setupStepIndex; i < setupSteps.length; i++) {
+      if (!setupSteps[i].dataset.isCompleted) {
+        return i;
+      }
+    }
+
+    // Check steps before current;
+    for (let i = 0; i < setupStepIndex; i++) {
+      if (!setupSteps[i].dataset.isCompleted) {
+        return i;
+      }
+    }
+
+    // Return -1, didn't find any incomplete step
+    return -1;
   }
 
   // Update progress count and indicator
