@@ -139,9 +139,9 @@ function app() {
     const setupStepARIANotification = setupStepsARIANotifications.item(setupStepIndex);
     setupStepARIANotification.setAttribute("aria-label", `Setup step ${setupStepIndex + 1} opened`);
 
-    const toggleVisibilityBtn = toggleSetupStepVisibiltyBtns.item(setupStepIndex)
+    const toggleVisibilityBtn = toggleSetupStepVisibiltyBtns.item(setupStepIndex);
     toggleVisibilityBtn.setAttribute("aria-expanded", true);
-    const toggleCompleteBtn = toggleSetupStepCompleteBtns.item(setupStepIndex)
+    const toggleCompleteBtn = toggleSetupStepCompleteBtns.item(setupStepIndex);
     toggleCompleteBtn.focus();
   }
 
