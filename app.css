@@ -100,7 +100,7 @@ body {
 }
 
 * {
-  transition: background-color 300ms ease-in;
+  transition: background-color 200ms ease-in;
 }
 
 /* COMPONENT STYLES */
@@ -120,8 +120,19 @@ body {
   margin: 0 auto;
 }
 
-.top-bar h1 {
+.shopify-link {
   flex-shrink: 0;
+  width: fit-content;
+  transition: transform 200ms ease-in;
+  transform-origin: center;
+}
+
+.shopify-link:hover {
+  transform: scale(1.05);
+}
+
+.shopify-link:active {
+  transform: scale(1);
 }
 
 .small-logo {
@@ -148,8 +159,7 @@ body {
   height: 2rem;
   border-radius: 0.5rem;
   background-color: var(--color-gray-200);
-  padding: 0.5rem;
-  padding-left: 2.125rem;
+  padding: 7px 7px 7px 33px;
   margin: 0 auto;
   font-size: 13px;
   font-weight: 500;
@@ -161,10 +171,10 @@ body {
   border-color: var(--stroke-s-100);
 }
 
-.search-input:focus-visible,
-.search-input:focus {
+.search-input:focus-visible {
   outline: 0;
   border: 2px solid #fff;
+  padding: 6px 6px 6px 32px;
 }
 
 .search-input::placeholder {
@@ -173,7 +183,6 @@ body {
 
 .search .icon {
   position: absolute;
-  /* width: 1rem; */
   height: 1rem;
   top: 0;
   bottom: 0;
@@ -222,23 +231,18 @@ body {
 .menu-btn:active,
 .alerts-btn:active,
 .menu-btn:focus-visible,
-.menu-btn:focus,
-.alerts-btn:focus-visible,
-.alerts-btn:focus {
+.alerts-btn:focus-visible {
   background-color: var(--font-mid-2);
 }
 
 .menu-btn:focus-visible,
-.menu-btn:focus,
-.alerts-btn:focus-visible,
-.alerts-btn:focus {
+.alerts-btn:focus-visible {
   outline: 0;
   box-shadow: 0px 0px 0px 1px #000, 0px 0px 0px 3px #005bd3;
 }
 
 .alerts {
-  max-width: 24rem;
-  padding: 1rem;
+  padding: 15px;
   background-color: white;
   color: var(--font-dark);
   border-radius: 14px;
@@ -248,11 +252,10 @@ body {
 
 .alerts,
 .menu {
-  position: fixed;
+  position: absolute;
   right: 1rem;
   top: 4rem;
-  width: calc(100% - 2rem);
-  max-height: calc(100% - 4rem);
+  margin-left: 1rem;
   overflow-y: auto;
   z-index: 5;
   animation: move-up 300ms ease-in;
@@ -269,18 +272,6 @@ body {
   font-size: 12px;
   font-weight: 500;
   line-height: 130%;
-}
-
-@keyframes move-up {
-  from {
-    transform: translateY(0.5rem);
-    opacity: 0;
-  }
-
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
 }
 
 .alerts header {
@@ -303,12 +294,13 @@ body {
   background-color: #e7e7e7;
 }
 
-.alerts button:focus {
+.alerts button:focus-visible {
   outline: 1px var(--states-focused) solid;
 }
 
 .alerts p {
   padding: 1rem;
+  width: fit-content;
   color: var(--font-mid-2);
   font-weight: 600;
   background-color: var(--color-background);
@@ -323,7 +315,7 @@ body {
   background: #fff;
   box-shadow: 0px 4px 8px 0px rgba(0, 0, 0, 0.05);
   font-size: 13px;
-  padding: 6px 0;
+  padding: 5px 0;
 }
 
 .check-icon {
@@ -332,7 +324,7 @@ body {
 }
 
 .menu li {
-  padding: 0 6px;
+  padding: 0 5px;
   margin-bottom: 4px;
 }
 
@@ -359,8 +351,7 @@ body {
   background: var(--states-hover, #f1f1f1);
 }
 
-.menu li a:focus-visible,
-.menu li a:focus {
+.menu li a:focus-visible {
   outline: 2px solid var(--states-focused);
 }
 
@@ -427,7 +418,7 @@ body {
   margin: 1rem auto 0;
   background-color: #fff;
   border-radius: 1.125rem;
-  padding: 0.5rem;
+  padding: 7px;
   margin-bottom: 2rem;
   color: var(--font-dark);
   font-size: 13px;
@@ -528,7 +519,7 @@ body {
   position: relative;
 }
 
-.check-step-btn:focus {
+.check-step-btn:focus-visible {
   outline: 2px var(--states-focused) solid;
   outline-offset: 1px;
 }
@@ -579,10 +570,19 @@ body {
 
 .setup h3 {
   font-weight: 500;
+  flex-grow: 1;
+}
+
+.setup-step-toggle {
+  width: 100%;
 }
 
 .setup-step.active h3 {
   font-weight: 600;
+}
+
+.setup-step.active .setup-step-toggle {
+  width: auto;
 }
 
 .setup-step .content {
@@ -593,7 +593,7 @@ body {
 
 .setup-step.active {
   background-color: #f3f3f3;
-  padding-bottom: 0.75rem;
+  padding-bottom: 14px;
 }
 
 .setup-step.active .content {
@@ -612,10 +612,15 @@ body {
   font-weight: 500;
 }
 
-.setup img {
+.setup img,
+.setup-step-img {
   position: absolute;
   top: 0.5rem;
   right: 0.5rem;
+
+  /* Add transparent gradient over image */
+  -webkit-mask-image: linear-gradient(180deg, white, white 85%, transparent 88.8%);
+  mask-image: linear-gradient(180deg, white, white 85%, transparent 88.8%);
 }
 
 .setup .btns-wrapper {
@@ -633,8 +638,7 @@ body {
   font-weight: 600;
   font-size: 12px;
   line-height: 130%;
-  border: 1px solid rgba(0, 0, 0, 0.1);
-  box-shadow: 0px -1px 0px 0px #b5b5b5 inset;
+  box-shadow: 0px 0px 0px 1px rgba(0, 0, 0, 0.1) inset, 0px -1px 0px 0px #b5b5b5 inset;
 }
 
 .btn-light:hover,
@@ -644,42 +648,39 @@ body {
 
 .btn-light:active {
   box-shadow: 0px 2px 1.5px 0px #e2e2e2 inset;
-  border: 0;
 }
 
-.btn-light:focus-visible,
-.btn-light:focus {
+.btn-light:focus-visible {
   outline: 2px #005bd3 solid;
   outline-offset: 1px;
-  box-shadow: 0px -1px 0px 0px #b5b5b5 inset;
 }
 
 .btn-dark {
   padding: 6px 12px;
+  height: 28px;
   border-radius: 6px;
-  border-top: 1.5px solid var(--stroke-light-100, rgba(255, 255, 255, 0.2));
-  border-right: 1.5px solid var(--stroke-light-100, rgba(255, 255, 255, 0.2));
-  border-left: 1.5px solid var(--stroke-light-100, rgba(255, 255, 255, 0.2));
   background: #404040;
-  box-shadow: 0px 2px 0px 0px #000, 0px 1px 0px 1.5px #333, 0px 0px 0px 1.5px #333;
+  box-shadow: 0px -1px 0px 0px #404040 inset, 0px 0px 0px 1px var(--stroke-light-100) inset,
+    0px 2px 0px 0px #000, 0px 0px 0px 1.5px #333, 0px 1px 0px 1.5px #333;
   font-size: 12px;
   color: var(--font-light);
   line-height: 130%;
   font-weight: 600;
+  transition-property: box-shadow, background-color;
 }
 
 .btn-dark:hover {
   background: #2a2a2a;
+  box-shadow: 0px -1px 0px 0px #2a2a2a inset, 0px 0px 0px 1px var(--stroke-light-100) inset,
+    0px 2px 0px 0px #000, 0px 0px 0px 1.5px #333, 0px 1px 0px 1.5px #333;
 }
 
 .btn-dark:active {
   background: #2b2b2b;
-  border: 0;
-  box-shadow: 0px 3px 0px 0px #000 inset, 0px 0px 0px 1.5px #333;
+  box-shadow: 0px -1px 0px 0px #2b2b2b inset, 0px 3px 0px 0px #000 inset, 0px 0px 0px 1.5px #333;
 }
 
-.btn-dark:focus-visible,
-.btn-dark:focus {
+.btn-dark:focus-visible {
   outline: 0;
   box-shadow: 0px 0px 0px 1.5px #333, 0px 0px 0px 3px #fff, 0px 0px 0px 5px #005bd3;
 }
@@ -699,8 +700,7 @@ body {
   background-color: #e0e0e0;
 }
 
-.btn-plain:focus-visible,
-.btn-plain:focus {
+.btn-plain:focus-visible {
   outline: 2px solid var(--states-focused);
 }
 
@@ -754,7 +754,6 @@ body {
   .alerts,
   .menu {
     top: 4.25rem;
-    max-height: calc(100% - 4.25rem);
   }
 
   .top-bar > div {
@@ -765,7 +764,8 @@ body {
     border-radius: 0;
   }
 
-  .setup img {
+  .setup img,
+  .setup-step-img {
     display: none;
   }
 }
@@ -792,5 +792,19 @@ body {
 
   .callout .close-btn {
     padding: 0.5rem;
+  }
+}
+
+/* ANIMATIONS */
+
+@keyframes move-up {
+  from {
+    transform: translateY(0.5rem);
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
   }
 }

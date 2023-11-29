@@ -56,15 +56,18 @@ function app() {
   // Toggle popup visibility
   function togglePopup(event, popupIndex) {
     const popup = popups[popupIndex];
-    const popupBtn = popupBtns[popupIndex];
-    const isPopupOpen = !popup.classList.contains(HIDDEN_CLASS);
+    const isPopupClosed = popup.classList.contains(HIDDEN_CLASS);
     hidePopups();
 
-    if (!isPopupOpen) {
+    if (isPopupClosed) {
       popup.classList.remove(HIDDEN_CLASS);
+      const popupBtn = popupBtns[popupIndex];
       popupBtn.setAttribute("aria-expanded", true);
+
       const popupARIANotification = popupsARIANotification[popupIndex];
       popupARIANotification.setAttribute("aria-label", popupARIANotification.dataset.openLabel);
+
+      // Stop event from reaching document click listener for outside clicks
       event.stopPropagation();
     }
   }
@@ -90,6 +93,11 @@ function app() {
     if (event.key === "Escape") {
       hidePopups();
     }
+  }
+
+  // Modulus function that works with negative numbers
+  function modNumber(num, n) {
+    return ((num % n) + n) % n;
   }
 
   // Move focus to next or previous menu item on arrow key press
@@ -131,20 +139,6 @@ function app() {
     toggleSetupBtn.dataset.isOpen = isOpen ? "" : true;
   }
 
-  // Hide other setup steps and show active one
-  function showSetupStep(setupStepIndex) {
-    hideSetupSteps();
-    setupSteps[setupStepIndex].classList.add(ACTIVE_CLASS);
-
-    const setupStepARIANotification = setupStepsARIANotifications.item(setupStepIndex);
-    setupStepARIANotification.setAttribute("aria-label", `Setup step ${setupStepIndex + 1} opened`);
-
-    const toggleVisibilityBtn = toggleSetupStepVisibiltyBtns.item(setupStepIndex);
-    toggleVisibilityBtn.setAttribute("aria-expanded", true);
-    const toggleCompleteBtn = toggleSetupStepCompleteBtns.item(setupStepIndex);
-    toggleCompleteBtn.focus();
-  }
-
   // Hide other setup steps
   function hideSetupSteps() {
     setupSteps.forEach((el, index) => {
@@ -162,6 +156,20 @@ function app() {
     toggleSetupStepVisibiltyBtns.forEach((btn) => btn.setAttribute("aria-expanded", false));
   }
 
+  // Hide other setup steps and show active one
+  function showSetupStep(setupStepIndex) {
+    hideSetupSteps();
+    setupSteps[setupStepIndex].classList.add(ACTIVE_CLASS);
+
+    const setupStepARIANotification = setupStepsARIANotifications.item(setupStepIndex);
+    setupStepARIANotification.setAttribute("aria-label", `Setup step ${setupStepIndex + 1} opened`);
+
+    const toggleVisibilityBtn = toggleSetupStepVisibiltyBtns.item(setupStepIndex);
+    toggleVisibilityBtn.setAttribute("aria-expanded", true);
+    const toggleCompleteBtn = toggleSetupStepCompleteBtns.item(setupStepIndex);
+    toggleCompleteBtn.focus();
+  }
+
   // Update aria attributes for check button for setup steps
   function updateARIAForToggleCompleteBtn(toggleBtnIndex) {
     const setupStep = setupSteps[toggleBtnIndex];
@@ -175,22 +183,6 @@ function app() {
     } else {
       toggleCompleteARIANotification.setAttribute("aria-label", "Setup step marked incomplete");
       toggleBtn.setAttribute("aria-label", "Mark step complete");
-    }
-  }
-
-  // Toggle setup step complete, update progress indicator and open next
-  // uncompleted setup step
-  function toggleSetupStepComplete(toggleBtnIndex) {
-    const setupStep = setupSteps[toggleBtnIndex];
-    const isSetupStepComplete = !!setupStep.dataset.isCompleted;
-    setupStep.dataset.isCompleted = isSetupStepComplete ? "" : true;
-
-    updateProgressBar();
-    updateARIAForToggleCompleteBtn(toggleBtnIndex);
-
-    const nextStepIndex = findNextUncompletedStepIndex(toggleBtnIndex);
-    if (nextStepIndex !== -1) {
-      showSetupStep(nextStepIndex);
     }
   }
 
@@ -221,9 +213,20 @@ function app() {
     progressCount.innerText = completedStepsNo;
   }
 
-  // Modulus function that works with negative numbers
-  function modNumber(num, n) {
-    return ((num % n) + n) % n;
+  // Toggle setup step complete, update progress indicator and open next
+  // uncompleted setup step
+  function toggleSetupStepComplete(toggleBtnIndex) {
+    const setupStep = setupSteps[toggleBtnIndex];
+    const isSetupStepComplete = !!setupStep.dataset.isCompleted;
+    setupStep.dataset.isCompleted = isSetupStepComplete ? "" : true;
+
+    updateProgressBar();
+    updateARIAForToggleCompleteBtn(toggleBtnIndex);
+
+    const nextStepIndex = findNextUncompletedStepIndex(toggleBtnIndex);
+    if (nextStepIndex !== -1) {
+      showSetupStep(nextStepIndex);
+    }
   }
 
   // Toggle alerts visibility on alerts button click
